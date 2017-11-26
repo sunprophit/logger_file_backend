@@ -110,7 +110,7 @@ defmodule LoggerFileBackend do
   defp open_log(path) do
     case (path |> Path.dirname |> File.mkdir_p) do
       :ok ->
-        case File.open(path, [:append, :utf8]) do
+        case File.open(path, [:append, :utf8, :delayed_write]) do
           {:ok, io_device} -> {:ok, io_device, get_inode(path)}
           other -> other
         end
